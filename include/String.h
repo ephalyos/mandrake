@@ -1,18 +1,37 @@
 
-struct String {
+#ifndef STRING_H
+#define STRING_H
+
+#include "Bool.h"
+
+struct StringObject{
+    int size ;
+    char *str ;
+};
+
+typedef struct StringObject String_t;
+
+
+
+struct StringClass {
     
-    Char head;
-    Char tail;
+    String_t ( * new  )  ( const char * ) ;
+    void     ( * free )  ( String_t *   ) ;
     
-    unsigned int size;
+    char ( * charAt )  ( String_t * , unsigned int ) ;
+    Bool ( * charIn )  ( String_t * , char         ) ;
+    void ( * print  )  ( String_t *                ) ;
+    
+    int  ( * size   )  ( String_t *                ) ;
     
 };
 
-typedef struct String * String;
+typedef struct StringClass StringClass;
 
-void add_Char (String this, char c) ;
 
-String new_String (const char *str) ;
 
-void print_String (String this) ;
+extern const StringClass String;
 
+
+
+#endif

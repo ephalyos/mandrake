@@ -1,100 +1,131 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Char.h"
+
+#include "Bool.h"
 #include "String.h"
 
-void add_Char (String this, char c) {
-    
-    Char temp = new_Char(c);
-    
-    if(this->head == NULL){
-        
-        if(c != '\0'){
-            
-            this->head = temp;
-            this->tail = temp;
-            this->size += 1;
-            
-        }
-        
-    } else {
-        
-        if(c != '\0'){
-            
-            Char last = this->tail;
-            
-            last->next = temp;
-            
-            this->tail = temp;
-            
-            this->size += 1;
-            
-        }
-        
-    }
-    
-    return;
-    
-}
 
-String new_String (const char *str) {
+// *******************************************************************************
+
+
+String_t String_New ( const char * str ) {
     
-    String this = (String) malloc ( sizeof(struct String) );
+    String_t * this = (String_t *) malloc (sizeof(String_t));
     
-    if(this == NULL){
-        perror("\n\n ***** A Terminating Error Ocurred ***** \n\n");
-        exit(1);
+    int size = 0;
+    
+    for(int i = 0; *(str + i) != '\0'; i++){
+        size++;
     }
     
-    this->head = NULL;
-    this->tail = NULL;
-    this->size = 0;
+    this->size = size;
     
-    while(1){
-        
-        add_Char(this, *str);
-        
-        if(*str == '\0'){
-            
+    char * tempStr = (char *) malloc (sizeof(char) * (size + 1));
+    
+    for(int i = 0; ; i++){
+        *(tempStr + i) = *(str + i);
+        if(*(str + i) == '\0'){
             break;
-            
         }
-        
-        str++;
-        
     }
     
-    return this;
+    this->str = tempStr;
+    
+    return *this;
     
 }
 
-void print_String (String this) {
+
+// *******************************************************************************
+
+
+void String_Free ( String_t * this ) {
     
-    if(this->head == NULL){
-        
-        perror("\n ***** This String is Empty ***** \n");
-        
-    } else {
-        
-        Char current = this->head;
-        
-        while(1){
-            
-            putchar(current->c);
-            
-            if(current->next == NULL){
-                
-                putchar('\n');
-                
-                break;
-                
-            }
-            
-            current = current->next;
-            
-        }
-        
-    }
+    free(this->str);
     
 }
+
+
+// *******************************************************************************
+
+
+char String_Char_At ( String_t * this , unsigned int index ) {
+    
+    if ( index >= this->size ){
+        
+        puts("\n\t ERROR: INDEX OUT OF BOUNDS \n");
+        
+        return 0;
+        
+    } 
+    
+    return this->str[index];
+    
+}
+
+
+// *******************************************************************************
+
+
+Bool String_Char_In ( String_t * this , char c ) {
+    
+    Bool exists = false;
+    
+    for(int i = 0; i < this->size; i++){
+        if(this->str[i] == c){
+            exists = true;
+            break;
+        }
+    }
+    
+    return exists;
+    
+}
+
+
+// *******************************************************************************
+
+
+void String_Print ( String_t * this ) {
+    
+    puts(this->str);
+    
+}
+
+
+// *******************************************************************************
+
+
+int String_Get_Size ( String_t * this ) {
+    
+    return this->size;
+    
+}
+
+
+// *******************************************************************************
+
+
+
+// #####################################################################
+// #####################################################################
+// #####################################################################
+
+const StringClass String = { 
+
+    .new = String_New, 
+    
+    .free = String_Free, 
+    
+    .charAt = String_Char_At,
+    
+    .charIn = String_Char_In,
+    
+    .print = String_Print,
+    
+    .size = String_Get_Size
+    
+};
+
+

@@ -1,11 +1,14 @@
 
-//
+#include "main.h"
 
-
-int main(int argc, char *argv[]){
+int main () {
+    
+    String_t newString = String.new("New definition");
+    
+    String.print(&newString);
+    
+    String.free(&newString);
     
     return 0;
+    
 }
-
-
-//
