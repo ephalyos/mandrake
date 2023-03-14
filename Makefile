@@ -8,6 +8,7 @@ all : bin/main
 
 bin/main : $(OBJECTS)
 	$(CC) -o $@ $^
+	bin/main.exe
 
 build/%.o : src/%.c include/%.h
 	$(CC) $(CFLAGS) -c -o $@ $<
