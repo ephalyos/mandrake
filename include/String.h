@@ -5,8 +5,11 @@
 #include "Bool.h"
 
 struct StringObject{
+    
     int size ;
-    char *str ;
+    
+    char * str ;
+    
 };
 
 typedef struct StringObject String_t;
