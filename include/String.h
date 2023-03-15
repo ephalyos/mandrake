@@ -4,6 +4,8 @@
 
 #include "Bool.h"
 
+// OBJECT DEFINITION * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
 struct StringObject{
     
     int size ;
@@ -15,6 +17,7 @@ struct StringObject{
 typedef struct StringObject String_t;
 
 
+// CLASS DEFINITION * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 struct StringClass {
     
@@ -32,9 +35,9 @@ struct StringClass {
 typedef struct StringClass StringClass;
 
 
+// GLOBAL CLASS OBJECT DEFINITION * * * * * * * * * * * * * * * * * * * * * * * * *
 
 extern const StringClass String;
-
 
 
 #endif

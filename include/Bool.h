@@ -4,4 +4,4 @@
 
 typedef enum Bool { false = 0, true = 1 } Bool;
 
-#endif 
+#endif
